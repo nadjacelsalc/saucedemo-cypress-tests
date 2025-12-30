@@ -36,6 +36,12 @@ describe('Products Page Tests', () => {
     cy.get('.shopping_cart_badge').should('contain', '1');
   });
 
+  it('TC-009: Add Product to Cart', () => {
+    ProductsPage.addProductToCart('Sauce Labs Bike Light');
+    cy.get('.shopping_cart_badge').should('contain', '1');
+  });
+
+
   it('TC-010: Remove Product from Cart', () => {
     ProductsPage.addProductToCart('Sauce Labs Backpack');
     ProductsPage.removeProductFromCart('Sauce Labs Backpack');
