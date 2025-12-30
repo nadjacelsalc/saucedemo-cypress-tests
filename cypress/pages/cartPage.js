@@ -1,12 +1,12 @@
 class CartPage {
 
-//gets title to chech if the right page is loaded
+//gets title to check if the right page is loaded
   getTitle() {
     return cy.get('.title');
   }
 
 getCartItems() {
-return cy.get('.cart_item');
+    return cy.get('.cart_item');
 }
 
 getQuantity(){
@@ -29,6 +29,9 @@ removeProductFromCart(productName) {
     cy.get('[data-test="continue-shopping"]').click();
   }
 
-  
+  checkout() {
+    cy.get('[data-test="checkout"]').click();
+}
+
 }
 export default new CartPage();
