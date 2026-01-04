@@ -13,17 +13,13 @@ describe('CheckoutOne page tests', () => {
     LoginPage.enterPassword('secret_sauce');
     LoginPage.clickLogin();
 
-    // Add product
     ProductsPage.addProductToCart('Sauce Labs Backpack');
     cy.get('.shopping_cart_badge').should('contain', '1');
 
-    // Open cart page
     cy.get('.shopping_cart_link').click();
 
-    // Check that cart actually loaded
     CartPage.getTitle().should('contain', 'Your Cart');
 
-    // Click checkout
     CartPage.checkout();
 });
 
@@ -31,6 +27,21 @@ describe('CheckoutOne page tests', () => {
     it('TC:001: Title loads', () => {
         checkoutonePage.getTitle().should('contain','Checkout: Your Information');
     })
+
+    it('TC:002: Data entry', () => {
+        checkoutonePage.enterFirstName("Nadja");
+        checkoutonePage.enterLastName("Celik");
+        checkoutonePage.enterZipCode("71780");
+        checkoutonePage.clickContinue();
+        cy.url().should('include','/checkout-step-two');
+    })
+
+    it('TC:003: Cancel'), () => {
+        checkoutonePage.clickContinue();
+        cy.url().should('include', '/cart')
+    }
+
+
         
     
 
