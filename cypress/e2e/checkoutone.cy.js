@@ -36,10 +36,10 @@ describe('CheckoutOne page tests', () => {
         cy.url().should('include','/checkout-step-two');
     })
 
-    it('TC:003: Cancel'), () => {
-        checkoutonePage.clickContinue();
-        cy.url().should('include', '/cart')
-    }
+    it('TC:003: Cancel', () => {
+        checkoutonePage.clickCancel();
+        cy.url().should('include', '/cart');
+    })
 
 
         
