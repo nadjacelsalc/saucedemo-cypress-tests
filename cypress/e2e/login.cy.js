@@ -30,4 +30,50 @@ describe('SauceDemo Login Tests', () => {
     LoginPage.clickLogin();
     LoginPage.getError().should('contain', 'Username is required');
   });
+
+  it('TC-005: Locked out user cannot login', () => {
+  LoginPage.visit();
+  LoginPage.enterUsername('locked_out_user');
+  LoginPage.enterPassword('secret_sauce');
+  LoginPage.clickLogin();
+
+  cy.get('[data-test="error"]').should(
+    'contain',
+    'Sorry, this user has been locked out.'
+  );
+});
+
+it('TC-006: Invalid password shows error', () => {
+  LoginPage.visit();
+  LoginPage.enterUsername('standard_user');
+  LoginPage.enterPassword('wrong_password');
+  LoginPage.clickLogin();
+
+  cy.get('[data-test="error"]').should(
+    'contain',
+    'Username and password do not match'
+  );
+});
+
+it('TC-007: Empty username and password', () => {
+  LoginPage.visit();
+  LoginPage.clickLogin();
+
+  cy.get('[data-test="error"]').should(
+    'contain',
+    'Username is required'
+  );
+});
+
+it('TC-008: Empty password', () => {
+  LoginPage.visit();
+  LoginPage.enterUsername('standard_user');
+  LoginPage.clickLogin();
+
+  cy.get('[data-test="error"]').should(
+    'contain',
+    'Password is required'
+  );
+});
+
 });

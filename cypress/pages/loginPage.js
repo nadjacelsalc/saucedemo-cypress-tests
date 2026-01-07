@@ -4,7 +4,7 @@ class LoginPage {
   }
 
   enterUsername(username) {
-    cy.get('[data-test="username"]').type(username);
+    return cy.get('[data-test="username"]').type(username);
   }
 
   enterPassword(password) {

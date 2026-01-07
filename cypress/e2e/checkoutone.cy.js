@@ -2,6 +2,7 @@ import LoginPage from '../pages/loginPage';
 import ProductsPage from '../pages/productsPage';
 import CartPage from '../pages/cartPage';
 import checkoutonePage from '../pages/checkoutonePage';
+import MenuPage from '../pages/menuPages'; 
 
 describe('CheckoutOne page tests', () => {
     beforeEach(() => {
@@ -24,11 +25,11 @@ describe('CheckoutOne page tests', () => {
 });
 
 
-    it('TC:001: Title loads', () => {
+    it('TC:035: Title loads', () => {
         checkoutonePage.getTitle().should('contain','Checkout: Your Information');
     })
 
-    it('TC:002: Data entry', () => {
+    it('TC:036: Data entry', () => {
         checkoutonePage.enterFirstName("Nadja");
         checkoutonePage.enterLastName("Celik");
         checkoutonePage.enterZipCode("71780");
@@ -36,17 +37,31 @@ describe('CheckoutOne page tests', () => {
         cy.url().should('include','/checkout-step-two');
     })
 
-    it('TC:003: Cancel', () => {
+    it('TC:037: Cancel', () => {
         checkoutonePage.clickCancel();
         cy.url().should('include', '/cart');
     })
 
+/////////////////////////////////////////
+it('TC-038: Submit empty form', () => {
+  checkoutonePage.clickContinue();
 
-        
-    
+  cy.get('[data-test="error"]').should(
+    'contain',
+    'First Name is required'
+  );
+});
 
-    
-    
-    
+it('TC-039: Missing postal code', () => {
+  checkoutonePage.enterFirstName('Test');
+  checkoutonePage.enterLastName('User');
+  checkoutonePage.clickContinue();
+
+  cy.get('[data-test="error"]').should(
+    'contain',
+    'Postal Code is required'
+  );
+});
+       
     
 });

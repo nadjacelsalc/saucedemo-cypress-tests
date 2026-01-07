@@ -8,6 +8,16 @@ enterFirstName(firstName){
 cy.get('[data-test="firstName"]').type(firstName)
 }
 
+getFirstName() {
+  return cy.get('[data-test="firstName"]');
+}
+
+getLastName() {
+  return cy.get('[data-test="lastName"]');
+}
+getZipCode() {
+  return cy.get('[data-test="postalCode"]');
+}
 enterLastName(lastName){
 cy.get('[data-test="lastName"]').type(lastName)
 }

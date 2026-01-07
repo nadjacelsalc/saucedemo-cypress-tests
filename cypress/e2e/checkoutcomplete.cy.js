@@ -2,7 +2,7 @@ import LoginPage from '../pages/loginPage';
 import ProductsPage from '../pages/productsPage';
 import CartPage from '../pages/cartPage';
 import CheckoutonePage from '../pages/checkoutonePage';
-import CheckouttwoPage from '../pages/checkouttwoPage';import CheckoutCompletePage from '../pages/checkoutcompletePage';
+import CheckoutCompletePage from '../pages/checkoutcompletePage';
 import checkouttwoPage from '../pages/checkouttwoPage';
 
 describe('Checkout Complete page tests', () => {
@@ -11,7 +11,6 @@ describe('Checkout Complete page tests', () => {
     
         cy.viewport(1280, 720);
     
-        // Login
         LoginPage.visit();
         LoginPage.enterUsername('standard_user');
         LoginPage.enterPassword('secret_sauce');
@@ -35,40 +34,40 @@ describe('Checkout Complete page tests', () => {
    
   });
 
-  it('TC-001: Page loads successfully', () => {
+  it('TC-040: Page loads successfully', () => {
     cy.url().should('eq', 'https://www.saucedemo.com/checkout-complete.html');
   });
 
-  it('TC-002: Verify page title', () => {
+  it('TC-041: Verify page title', () => {
     CheckoutCompletePage.getTitle()
       .should('be.visible')
       .and('contain', 'Checkout: Complete!');
   });
 
-  it('TC-003: Verify success header message', () => {
+  it('TC-042: Verify success header message', () => {
     CheckoutCompletePage.getCompleteHeader()
       .should('be.visible')
       .and('contain', 'Thank you for your order!');
   });
 
-  it('TC-004: Verify success description text', () => {
+  it('TC-043: Verify success description text', () => {
     CheckoutCompletePage.getCompleteText()
       .should('be.visible')
       .and('contain', 'Your order has been dispatched');
   });
 
-  it('TC-005: Verify success image is displayed', () => {
+  it('TC-044: Verify success image is displayed', () => {
     CheckoutCompletePage.getPonyExpressImage()
       .should('be.visible');
   });
 
-  it('TC-006: Verify Back Home button exists', () => {
+  it('TC-045: Verify Back Home button exists', () => {
     CheckoutCompletePage.getBackHomeButton()
       .should('be.visible')
       .and('contain', 'Back Home');
   });
 
-  it('TC-007: Verify Back Home button navigates to inventory page', () => {
+  it('TC-046: Verify Back Home button navigates to inventory page', () => {
     CheckoutCompletePage.clickBackHome();
     cy.url().should('include', '/inventory');
   });

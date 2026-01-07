@@ -1,5 +1,7 @@
 import LoginPage from '../pages/loginPage';
 import CartPage from '../pages/cartPage';
+import MenuPage from '../pages/menuPages';
+import ProductsPage from '../pages/productsPage';
 
 describe('Cart Page Tests', () => {
   beforeEach(() => {
@@ -10,33 +12,25 @@ describe('Cart Page Tests', () => {
     LoginPage.clickLogin();
   });
 
-    it('TC-006: Verify Cart Loads', () => {
-    // 1) dodaj proizvod na products stranici
+    it('TC-025: Verify Cart Loads', () => {
     cy.contains('.inventory_item', 'Sauce Labs Bike Light')
       .find('button')
       .click();
-
-    // 2) otvori cart
     cy.get('.shopping_cart_link').click();
 
-    // 3) verifikacije
     CartPage.getTitle().should('contain', 'Your Cart');
     CartPage.getCartItems().should('exist');
   });
 
-  it('TC-007: Remove from cart', () => {
-    // 1) dodaj proizvod
+  it('TC-026: Remove from cart', () => {
     cy.contains('.inventory_item', 'Sauce Labs Bike Light')
       .find('button')
       .click();
 
-    // 2) idi u cart
     cy.get('.shopping_cart_link').click();
 
-    // 3) ukloni
     CartPage.removeProductFromCart('Sauce Labs Bike Light');
 
-    // 4) assert
     cy.contains('.cart_item', 'Sauce Labs Bike Light')
       .should('not.exist');
   });
@@ -44,7 +38,7 @@ describe('Cart Page Tests', () => {
 
 
   // DODATNI TESTOVI
-  it('TC-202: Add product and verify it appears in cart', () => {
+  it('TC-027: Add product and verify it appears in cart', () => {
     cy.contains('.inventory_item', 'Sauce Labs Backpack')
       .find('button')
       .click();
@@ -55,7 +49,7 @@ describe('Cart Page Tests', () => {
     cy.contains('.cart_item', 'Sauce Labs Backpack').should('exist');
   });
 
-  it('TC-203: Verify quantity for items in cart', () => {
+  it('TC-028: Verify quantity for items in cart', () => {
     cy.contains('.inventory_item', 'Sauce Labs Backpack')
       .find('button')
       .click();
@@ -65,7 +59,7 @@ describe('Cart Page Tests', () => {
     CartPage.getQuantity().should('contain', '1');
   });
 
-  it('TC-204: Verify price of product in cart', () => {
+  it('TC-029: Verify price of product in cart', () => {
     cy.contains('.inventory_item', 'Sauce Labs Backpack')
       .find('button')
       .click();
@@ -75,7 +69,7 @@ describe('Cart Page Tests', () => {
     CartPage.getPrice().should('contain', '$29.99');
   });
 
-  it('TC-206: Continue Shopping returns to Products page', () => {
+  it('TC-030: Continue Shopping returns to Products page', () => {
     cy.get('.shopping_cart_link').click();
 
     CartPage.continueShopping();
@@ -84,7 +78,7 @@ describe('Cart Page Tests', () => {
     cy.get('.title').should('contain', 'Products');
   });
 
-  it('TC-207: Removing product makes cart empty', () => {
+  it('TC-031: Removing product makes cart empty', () => {
     cy.contains('.inventory_item', 'Sauce Labs Bolt T-Shirt')
       .find('button')
       .click();
@@ -96,21 +90,40 @@ describe('Cart Page Tests', () => {
     CartPage.getCartItems().should('not.exist');
   });
 
-  it('TC-208: Checkout button navigates to Checkout Step One page', () => {
-  // Dodaj jedan proizvod
+  it('TC-032: Checkout button navigates to Checkout Step One page', () => {
+  
   cy.contains('.inventory_item', 'Sauce Labs Backpack')
     .find('button')
     .click();
 
-  // Idi u cart
   cy.get('.shopping_cart_link').click();
 
-  // Klik na checkout
   CartPage.checkout();
 
-  // Assert da smo stvarno na checkout page-u
   cy.get('.title').should('contain', 'Checkout: Your Information');
 });
 
+////////////////////////////
+
+it('TC-033: Checkout button is not visible when cart is empty', () => {
+  MenuPage.openMenu();
+  MenuPage.resetAppState();
+
+  cy.get('.shopping_cart_link').click();
+
+  cy.get('.cart_item').should('not.exist');
+  cy.get('[data-test="checkout"]').should('exist'); // dugme postoji
+});
+
+
+it('TC-034: Removing last product empties cart', () => {
+ 
+  ProductsPage.addProductToCart('Sauce Labs Backpack');
+  cy.get('.shopping_cart_link').click();
+
+  CartPage.removeProductFromCart('Sauce Labs Backpack');
+
+  CartPage.getCartItems().should('not.exist');
+});
 
 });
