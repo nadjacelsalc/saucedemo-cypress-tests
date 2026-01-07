@@ -131,6 +131,3 @@ Password: `secret_sauce`
 
 **Nadja Čelik-Salčinović**
 QA Automation Portfolio Project
-
-
-**End of Document**
