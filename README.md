@@ -4,7 +4,7 @@
 
 This repository showcases a **QA Automation portfolio project** built with **Cypress** for the SauceDemo web application ([https://www.saucedemo.com](https://www.saucedemo.com)).
 
-The project demonstrates **real-world QA automation skills**, including test design, negative testing, Page Object Model implementation, and structured reporting. It is designed to reflect industry best practices suitable for **junior QA / QA automation roles**.
+The project demonstrates test design, negative testing, Page Object Model implementation, and structured reporting skills. 
 
 ---
 
